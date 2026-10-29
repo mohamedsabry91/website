@@ -39,6 +39,10 @@ const checkColors = ['#2172B6', '#2E8B57', '#E07A1F', '#2172B6', '#2E8B57'];
     <div class="wrap stack">
       <p class="notice">{s.notice}</p>
       <div class="panel"><IdfChart c={c.idfChart} /></div>
+      <div class="uncertainty">
+        <h3>{s.uncertaintyTitle}</h3>
+        {s.uncertainty.map((p) => <p>{p}</p>)}
+      </div>
 
       <div class="heading"><h2>{s.checksTitle}</h2></div>
       <ol class="checks">

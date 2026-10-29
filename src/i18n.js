@@ -75,6 +75,7 @@ export const t = {
       aria: 'Illustrative IDF curves for Riyadh from public NOAA data: 2, 10, 25 and 100-year return periods and a 100-year curve with a 20% climate allowance',
       xLabel: 'Duration (min)', yLabel: 'Intensity (mm/h)',
       rp: ['2-yr', '10-yr', '25-yr', '100-yr'], extrapolated: '(beyond record)', uplift: '100-yr + 20% climate allowance',
+      band: '100-yr, 90% bootstrap range',
       caption: 'Riyadh IDF curves, illustrative. Dashed lines go beyond the 11-year record.',
     },
     caseStudy: {
@@ -88,8 +89,14 @@ export const t = {
       figures: [
         ['11 years', 'usable record after quality checks'],
         ['92 mm', '100-year, 24-hour depth'],
-        ['38.5 mm/h', '100-year, 1-hour intensity'],
+        ['38.5 mm/h', '100-year, 1-hour intensity (90% range 21–51)'],
         ['+20%', 'illustrative climate allowance'],
+      ],
+      uncertaintyTitle: 'A method demonstration, not a design value',
+      uncertainty: [
+        'These curves come from a short public record: 11 usable years at NOAA GHCN-Daily station SA000040438. Return periods beyond about twice the record length, here 25 years and up, carry wide uncertainty.',
+        'Resampling the 11 annual maxima 2,000 times (bootstrap) and refitting Log-Pearson III gives a 90% range of 44–107 mm for the 100-year day, and 21–51 mm/h for the 100-year, 1-hour intensity. That is the shaded band on the chart. A design study narrows it with longer and denser records.',
+        'Next: a side-by-side check against the longer GPM-IMERG satellite record (2000 to today) for the Riyadh grid cell.',
       ],
       checksTitle: 'The 5 checks, one by one',
       did: 'What I did', found: 'What it showed',
@@ -191,6 +198,7 @@ export const t = {
       aria: 'منحنيات IDF توضيحية للرياض من بيانات NOAA العامة: فترات تكرار 2 و10 و25 و100 سنة، ومنحنى 100 سنة مع هامش 20% للتغير المناخي',
       xLabel: 'المدة (دقيقة)', yLabel: 'الشدة (مم/ساعة)',
       rp: ['2 سنة', '10 سنوات', '25 سنة', '100 سنة'], extrapolated: '(خارج مدة السجل)', uplift: '100 سنة + 20% للتغير المناخي',
+      band: '100 سنة، نطاق 90% (Bootstrap)',
       caption: 'منحنيات IDF للرياض، توضيحية. الخطوط المتقطعة تتجاوز مدة السجل (11 سنة).',
     },
     caseStudy: {
@@ -204,8 +212,14 @@ export const t = {
       figures: [
         ['11 سنة', 'سجل صالح بعد تدقيق البيانات'],
         ['92 مم', 'عمق 24 ساعة، فترة تكرار 100 سنة'],
-        ['38.5 مم/ساعة', 'شدة ساعة واحدة، فترة تكرار 100 سنة'],
+        ['38.5 مم/ساعة', 'شدة ساعة واحدة، فترة تكرار 100 سنة (نطاق 90%: 21–51)'],
         ['+20%', 'هامش توضيحي للتغير المناخي'],
+      ],
+      uncertaintyTitle: 'عرض للمنهجية، وليس قيمة تصميمية',
+      uncertainty: [
+        'هذه المنحنيات مبنية على سجل عام قصير: 11 سنة صالحة في محطة NOAA GHCN-Daily رقم SA000040438. فترات التكرار التي تتجاوز ضعف مدة السجل تقريبًا، أي 25 سنة فأكثر هنا، تحمل عدم يقين كبيرًا.',
+        'إعادة سحب العينات من القيم القصوى السنوية الإحدى عشرة 2,000 مرة (Bootstrap) وإعادة ملاءمة Log-Pearson III تعطي نطاق ثقة 90% قدره 44–107 مم ليوم الـ100 سنة، و21–51 مم/ساعة لشدة الساعة لفترة 100 سنة. هذا هو النطاق المظلل في الرسم. الدراسة التصميمية تضيّقه بسجلات أطول وأكثف.',
+        'الخطوة التالية: مقارنة جنبًا إلى جنب مع سجل الأقمار الصناعية الأطول GPM-IMERG (من 2000 حتى اليوم) لخلية الرياض.',
       ],
       checksTitle: 'الفحوصات الخمسة، واحدًا تلو الآخر',
       did: 'ماذا فعلت', found: 'ماذا أظهر',

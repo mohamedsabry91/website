@@ -18,8 +18,14 @@ function layout(W, H, m, xTicks) {
   const x = (d) => m.l + (Math.log(d / 5) / Math.log(1440 / 5)) * (W - m.l - m.r);
   const y = (i) => H - m.b - (Math.log(i) / Math.log(200)) * (H - m.t - m.b);
   const line = (pts) => durations.map((d, k) => `${k ? 'L' : 'M'}${x(d).toFixed(1)} ${y(pts[d]).toFixed(1)}`).join(' ');
+  // 90% bootstrap range of the 100-yr curve: every duration is a fixed multiple of the daily value
+  const fit100 = idf.check2_distributions[idf.chosen_distribution].daily_100yr_mm;
+  const ci = idf.uncertainty.daily_mm['100'];
+  const at = (k) => durations.map((d) => [x(d), y(idf.intensity_mm_per_h['100'][d] * k)]);
+  const band = [...at(ci.high / fit100), ...at(ci.low / fit100).reverse()]
+    .map(([px, py], k) => `${k ? 'L' : 'M'}${px.toFixed(1)} ${py.toFixed(1)}`).join(' ') + ' Z';
   return {
-    W, H, m, x, y, xTicks,
+    W, H, m, x, y, xTicks, band,
     series: palette.map((s) => ({ ...s, d: line(idf.intensity_mm_per_h[s.T]), dashed: s.T > nYears })),
     uplift: line(idf.check5_climate_uplift['100yr_plus_uplift_mm_per_h']),
   };
@@ -40,6 +46,7 @@ const sw = compact ? 4 : 2.6;
         {yTicks.map((t) => <line x1={v.m.l} x2={v.W - v.m.r} y1={v.y(t)} y2={v.y(t)} />)}
         {v.xTicks.map((d) => <line x1={v.x(d)} x2={v.x(d)} y1={v.m.t} y2={v.H - v.m.b} />)}
       </g>
+      {!compact && <path d={v.band} fill="#0B1E33" fill-opacity="0.08" />}
       {v.series.map((s) => (
         <path d={s.d} fill="none" stroke={s.color} stroke-width={sw} stroke-dasharray={s.dashed ? '8 5' : undefined} />
       ))}
@@ -58,6 +65,7 @@ const sw = compact ? 4 : 2.6;
     <ul class="legend light">
       {views[0].series.map((s, k) => <li><span style={`background:${s.color}`}></span>{c.rp[k]}{s.dashed ? ` ${c.extrapolated}` : ''}</li>)}
       <li><span style="background:#E07A1F"></span>{c.uplift}</li>
+      <li><span class="band-key"></span>{c.band}</li>
     </ul>
   )}
   {!compact && <figcaption>{c.caption}</figcaption>}

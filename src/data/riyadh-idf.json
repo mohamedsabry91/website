@@ -270,6 +270,35 @@
     }
   },
   "check4_issues": [],
+  "uncertainty": {
+    "method": "non-parametric bootstrap of the annual maxima, 2000 resamples, refit Log-Pearson III",
+    "level": 0.9,
+    "reliable_up_to_years": 22,
+    "daily_mm": {
+      "10": {
+        "low": 30.7,
+        "median": 43.0,
+        "high": 55.2
+      },
+      "100": {
+        "low": 44.0,
+        "median": 77.0,
+        "high": 106.6
+      }
+    },
+    "intensity_1h_mm_per_h": {
+      "10": {
+        "low": 14.6,
+        "median": 20.4,
+        "high": 26.2
+      },
+      "100": {
+        "low": 20.9,
+        "median": 36.5,
+        "high": 50.6
+      }
+    }
+  },
   "check5_climate_uplift": {
     "uplift": 0.2,
     "note": "illustrative sensitivity only",

@@ -120,6 +120,10 @@ html[lang='ar'] .case-hero h1 { line-height: 1.4; }
 .idf { margin: 0; display: flex; flex-direction: column; gap: 12px; }
 .idf figcaption, .fit figcaption { font-size: 14px; color: var(--muted); }
 .legend.light { color: var(--muted); }
+.legend .band-key { height: 12px; background: rgba(11, 30, 51, 0.12); }
+.uncertainty { border-inline-start: 4px solid var(--teal); background: #fff; border-radius: 12px; padding: 18px 22px; display: flex; flex-direction: column; gap: 8px; }
+.uncertainty h3 { font-size: 18px; font-weight: 700; }
+.uncertainty p { color: var(--muted); }
 .idf .narrow-only { display: none; }
 @media (max-width: 600px) {
   .idf .wide-only { display: none; }
