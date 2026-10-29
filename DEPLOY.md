@@ -16,14 +16,10 @@ npm run build        # must end with "Complete!" and 4 pages
 npm run preview      # open http://localhost:4321 and click through EN, AR and the case study
 ```
 
-## 2. Put the code in git (only when Mohamed says go)
-Not done yet: the folder is not a git repo. Plan:
-```
-git init -b main
-git add .
-git commit -m "Personal website: EN + AR, Riyadh IDF case study"
-```
-`.gitignore` already excludes `node_modules/`, `dist/` and `.astro/`.
+## 2. Put the code on GitHub (only when Mohamed says go)
+Done locally on 29 Oct 2026: the folder is a git repo on `main` with a first commit.
+`.gitignore` excludes `node_modules/`, `dist/` and `.astro/`.
+Before a **public** repo, decide whether `CLAUDE.md` (internal working notes) should stay in it.
 Then on GitHub: **New repository** (e.g. `msabry-site`, public or private, no README), and:
 ```
 git remote add origin https://github.com/<github-user>/msabry-site.git
