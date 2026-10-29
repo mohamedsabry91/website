@@ -1,0 +1,180 @@
+---
+import { CONTACT_EMAIL, LINKEDIN_URL, GITHUB_URL } from '../i18n.js';
+import IdfChart from './IdfChart.astro';
+
+const { c } = Astro.props;
+const icons = [
+  '<path d="M3 20h18"/><path d="M5 17c3-9 6-12 14-13"/><path d="M5 17c4-5 8-7 14-8"/>',
+  '<circle cx="5" cy="6" r="2"/><circle cx="19" cy="6" r="2"/><circle cx="12" cy="18" r="2"/><path d="M7 6h10"/><path d="M6 8l5 8"/><path d="M18 8l-5 8"/>',
+  '<rect x="3" y="4" width="18" height="14" rx="2"/><path d="M7 9l3 3-3 3"/><path d="M13 15h4"/>',
+];
+const curveColors = ['#7FD3E6', '#3FB3CF', '#1E8BAA', '#4E6A88'];
+const curves = [
+  'M45 40 C 90 120, 160 170, 400 205',
+  'M45 70 C 90 140, 160 182, 400 209',
+  'M45 100 C 90 158, 160 193, 400 212',
+  'M45 130 C 90 175, 160 202, 400 215',
+];
+const tints = ['#DCEBF1', '#E4E9F2', '#E7EEE9'];
+---
+<header class="dark">
+  <div class="wrap bar">
+    <a href="#top" class="brand">
+      <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#13809F"/><path d="M7 21c3-4 6-4 9 0s6 4 9 0" stroke="#fff" stroke-width="2.2" fill="none" stroke-linecap="round"/><path d="M17 7c-3 4-4.5 6.5-4.5 8.5a4.5 4.5 0 0 0 9 0C21.5 13.5 20 11 17 7z" fill="#fff"/></svg>
+      <span>{c.name}</span>
+    </a>
+    <nav aria-label="Main">
+      <a href="#services">{c.nav.services}</a>
+      <a href="#work">{c.nav.work}</a>
+      <a href="#insights">{c.nav.insights}</a>
+      <a href="#toolkit">{c.nav.toolkit}</a>
+      <a href="#contact">{c.nav.contact}</a>
+      <a class="pill" href={c.switchHref} lang={c.switchLang} hreflang={c.switchLang}>{c.switchLabel}</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section id="top" class="dark hero">
+    <div class="wrap hero-grid">
+      <div class="hero-text">
+        <p class="eyebrow light">{c.eyebrow}</p>
+        <h1>{c.headline}</h1>
+        <p class="lead">{c.lead}</p>
+        <div class="actions">
+          <a class="btn primary" href="#contact">{c.ctaPrimary}</a>
+          <a class="btn ghost" href="#work">{c.ctaSecondary}</a>
+        </div>
+      </div>
+      <figure class="chart">
+        <figcaption>{c.chart.caption}</figcaption>
+        <svg dir="ltr" viewBox="0 0 420 260" width="100%" role="img" aria-label={c.chart.aria}>
+          <g stroke="#1E3D63" stroke-width="1">
+            <line x1="40" y1="20" x2="40" y2="220"/><line x1="40" y1="220" x2="400" y2="220"/>
+            <line x1="40" y1="170" x2="400" y2="170" stroke-dasharray="3 5"/>
+            <line x1="40" y1="120" x2="400" y2="120" stroke-dasharray="3 5"/>
+            <line x1="40" y1="70" x2="400" y2="70" stroke-dasharray="3 5"/>
+          </g>
+          {curves.map((d, i) => <path d={d} stroke={curveColors[i]} stroke-width="3" fill="none"/>)}
+          <text x={c.dir === 'rtl' ? 340 : 40} y="244" fill="#8FA6BF" font-size="12">{c.chart.duration}</text>
+          <text x="8" y="24" fill="#8FA6BF" font-size="12">mm/h</text>
+        </svg>
+        <ul class="legend">
+          {c.chart.rp.map((label, i) => <li><span style={`background:${curveColors[i]}`}></span>{label}</li>)}
+        </ul>
+      </figure>
+    </div>
+  </section>
+
+  <section class="stats" aria-label="Credentials">
+    <div class="wrap stat-grid">
+      {c.stats.map(([big, small]) => <div><strong>{big}</strong><span>{small}</span></div>)}
+    </div>
+  </section>
+
+  <section id="services" class="section">
+    <div class="wrap stack">
+      <div class="heading">
+        <p class="eyebrow">{c.servicesEyebrow}</p>
+        <h2>{c.servicesTitle}</h2>
+      </div>
+      <div class="cards">
+        {c.services.map(([h, p], i) => (
+          <article class="card">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#13809F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={icons[i]}></svg>
+            <h3>{h}</h3>
+            <p>{p}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section id="work" class="section white">
+    <div class="wrap stack">
+      <div class="heading-row">
+        <div class="heading">
+          <p class="eyebrow">{c.workEyebrow}</p>
+          <h2>{c.workTitle}</h2>
+        </div>
+        <a href="#work" class="more">{c.workAll}</a>
+      </div>
+      <div class="cards">
+        {c.work.map(([tag, h, p, img, href], i) => (
+          <article class="project">
+            <div class="thumb" style={`background:${tints[i]}`}>
+              {img === 'idf' ? <IdfChart c={c.idfChart} compact /> : img}
+            </div>
+            <div class="project-body">
+              <span class="tag">{tag}</span>
+              <h3>{href ? <a href={href}>{h}</a> : h}</h3>
+              <p>{p}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section id="insights" class="section">
+    <div class="wrap stack">
+      <div class="heading">
+        <p class="eyebrow">{c.insightsEyebrow}</p>
+        <h2>{c.insightsTitle}</h2>
+      </div>
+      <div class="cards">
+        {c.insights.map(([meta, h, url]) => url ? (
+          <a class="insight" href={url} target="_blank" rel="noopener">
+            <span class="meta">{meta}</span>
+            <span class="insight-title">{h}</span>
+            <span class="read">{c.read}</span>
+          </a>
+        ) : (
+          <div class="insight soon">
+            <span class="meta">{meta}</span>
+            <span class="insight-title">{h}</span>
+            <span class="read">{c.soon}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section id="toolkit" class="section tight">
+    <div class="wrap">
+      <div class="toolkit">
+        <div class="toolkit-text">
+          <p class="eyebrow light">{c.toolkitEyebrow}</p>
+          <h2>{c.toolkitTitle}</h2>
+          <p>{c.toolkitText}</p>
+        </div>
+        <a class="btn light-btn" href={GITHUB_URL}>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 18l6-6-6-6"/><path d="M8 6l-6 6 6 6"/></svg>
+          {c.toolkitCta}
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="section white">
+    <div class="wrap contact">
+      <div class="heading">
+        <p class="eyebrow">{c.contactEyebrow}</p>
+        <h2>{c.contactTitle}</h2>
+        <p class="body">{c.contactText}</p>
+      </div>
+      <div class="contact-box">
+        <a class="btn primary" href={`mailto:${CONTACT_EMAIL}`}>{c.emailCta}</a>
+        <a href={LINKEDIN_URL}>{c.linkedin}</a>
+        <span>{c.location}</span>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="dark foot">
+  <div class="wrap bar">
+    <span>{c.footer}</span>
+    <a href={c.switchHref} lang={c.switchLang}>{c.switchLabel}</a>
+  </div>
+</footer>

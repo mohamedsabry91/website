@@ -1,0 +1,10 @@
+---
+import Base from '../../../layouts/Base.astro';
+import CaseStudyIdf from '../../../components/CaseStudyIdf.astro';
+import { t } from '../../../i18n.js';
+
+const c = t.ar;
+---
+<Base lang={c.lang} dir={c.dir} title={c.caseStudy.title} description={c.caseStudy.description} path="case-studies/riyadh-idf/">
+  <CaseStudyIdf c={c} />
+</Base>

@@ -1,0 +1,87 @@
+---
+import IdfChart from './IdfChart.astro';
+
+const { c } = Astro.props;
+const s = c.caseStudy;
+const home = c.lang === 'ar' ? '/ar/' : '/';
+const other = c.lang === 'ar' ? '/case-studies/riyadh-idf/' : '/ar/case-studies/riyadh-idf/';
+const checkColors = ['#2172B6', '#2E8B57', '#E07A1F', '#2172B6', '#2E8B57'];
+---
+<header class="dark">
+  <div class="wrap bar">
+    <a href={home} class="brand">
+      <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#13809F"/><path d="M7 21c3-4 6-4 9 0s6 4 9 0" stroke="#fff" stroke-width="2.2" fill="none" stroke-linecap="round"/><path d="M17 7c-3 4-4.5 6.5-4.5 8.5a4.5 4.5 0 0 0 9 0C21.5 13.5 20 11 17 7z" fill="#fff"/></svg>
+      <span>{c.name}</span>
+    </a>
+    <nav aria-label="Main">
+      <a href={home}>{s.back}</a>
+      <a class="pill" href={other} lang={c.switchLang} hreflang={c.switchLang}>{c.switchLabel}</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="dark case-hero">
+    <div class="wrap stack-sm">
+      <p class="eyebrow light">{s.eyebrow}</p>
+      <h1>{s.headline}</h1>
+      <p class="lead">{s.lead}</p>
+    </div>
+  </section>
+
+  <section class="stats" aria-label="Key figures">
+    <div class="wrap stat-grid">
+      {s.figures.map(([big, small]) => <div><strong>{big}</strong><span>{small}</span></div>)}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap stack">
+      <p class="notice">{s.notice}</p>
+      <div class="panel"><IdfChart c={c.idfChart} /></div>
+
+      <div class="heading"><h2>{s.checksTitle}</h2></div>
+      <ol class="checks">
+        {s.checks.map(([h, did, found], i) => (
+          <li class="check">
+            <span class="num" style={`background:${checkColors[i]}`}>{i + 1}</span>
+            <div class="check-body">
+              <h3>{h}</h3>
+              <p><strong>{s.did}:</strong> {did}</p>
+              <p><strong>{s.found}:</strong> {found}</p>
+              {i === 1 && (
+                <figure class="panel fit">
+                  <img src="/case-studies/probability_plot.png" alt={s.fitAlt} width="1200" height="750" loading="lazy" />
+                  <figcaption>{s.fitCaption}</figcaption>
+                </figure>
+              )}
+            </div>
+          </li>
+        ))}
+      </ol>
+
+      <div class="two-col">
+        <div class="card">
+          <h3>{s.nextTitle}</h3>
+          <ul class="plain">{s.next.map((n) => <li>{n}</li>)}</ul>
+        </div>
+        <div class="card">
+          <h3>{s.sourcesTitle}</h3>
+          <ul class="plain">
+            {s.sources.map(([label, url]) => <li>{url ? <a href={url} dir="ltr">{label}</a> : <span dir="ltr">{label}</span>}</li>)}
+          </ul>
+          <p class="small">{s.code}</p>
+        </div>
+      </div>
+
+      <div class="actions"><a class="btn primary" href={`${home}#contact`}>{s.cta}</a></div>
+    </div>
+  </section>
+</main>
+
+<footer class="dark foot">
+  <div class="wrap bar">
+    <span>{c.footer}</span>
+    <a href={other} lang={c.switchLang}>{c.switchLabel}</a>
+  </div>
+</footer>

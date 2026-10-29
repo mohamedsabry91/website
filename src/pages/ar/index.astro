@@ -1,0 +1,10 @@
+---
+import Base from '../../layouts/Base.astro';
+import Home from '../../components/Home.astro';
+import { t } from '../../i18n.js';
+
+const c = t.ar;
+---
+<Base lang={c.lang} dir={c.dir} title={c.title} description={c.description}>
+  <Home c={c} />
+</Base>

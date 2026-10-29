@@ -1,0 +1,64 @@
+---
+// Log-log IDF chart drawn from the hydro-toolkit results (src/data/riyadh-idf.json).
+// Full charts render a wide and a phone layout; CSS shows one, so labels stay readable.
+import idf from '../data/riyadh-idf.json';
+
+const { c, compact = false } = Astro.props;
+const durations = [5, 10, 15, 30, 60, 120, 180, 360, 720, 1440];
+const yTicks = [1, 2, 5, 10, 20, 50, 100, 200];
+const nYears = idf.check1_data_quality.n_years;
+const palette = [
+  { T: 2, color: '#7FCDE0' },
+  { T: 10, color: '#2FA3C2' },
+  { T: 25, color: '#1E6F8C' },
+  { T: 100, color: '#0B1E33' },
+];
+
+function layout(W, H, m, xTicks) {
+  const x = (d) => m.l + (Math.log(d / 5) / Math.log(1440 / 5)) * (W - m.l - m.r);
+  const y = (i) => H - m.b - (Math.log(i) / Math.log(200)) * (H - m.t - m.b);
+  const line = (pts) => durations.map((d, k) => `${k ? 'L' : 'M'}${x(d).toFixed(1)} ${y(pts[d]).toFixed(1)}`).join(' ');
+  return {
+    W, H, m, x, y, xTicks,
+    series: palette.map((s) => ({ ...s, d: line(idf.intensity_mm_per_h[s.T]), dashed: s.T > nYears })),
+    uplift: line(idf.check5_climate_uplift['100yr_plus_uplift_mm_per_h']),
+  };
+}
+
+const views = compact
+  ? [{ cls: '', ...layout(640, 300, { l: 16, r: 16, t: 16, b: 16 }, []) }]
+  : [
+      { cls: 'wide-only', ...layout(640, 400, { l: 58, r: 20, t: 20, b: 48 }, durations) },
+      { cls: 'narrow-only', ...layout(340, 300, { l: 44, r: 18, t: 14, b: 44 }, [5, 15, 60, 360, 1440]) },
+    ];
+const sw = compact ? 4 : 2.6;
+---
+<figure class:list={['idf', { compact }]}>
+  {views.map((v) => (
+    <svg class={v.cls} dir="ltr" viewBox={`0 0 ${v.W} ${v.H}`} width="100%" role="img" aria-label={c.aria}>
+      <g stroke="#E2E8EF" stroke-width="1">
+        {yTicks.map((t) => <line x1={v.m.l} x2={v.W - v.m.r} y1={v.y(t)} y2={v.y(t)} />)}
+        {v.xTicks.map((d) => <line x1={v.x(d)} x2={v.x(d)} y1={v.m.t} y2={v.H - v.m.b} />)}
+      </g>
+      {v.series.map((s) => (
+        <path d={s.d} fill="none" stroke={s.color} stroke-width={sw} stroke-dasharray={s.dashed ? '8 5' : undefined} />
+      ))}
+      <path d={v.uplift} fill="none" stroke="#E07A1F" stroke-width={sw} stroke-dasharray="2 5" stroke-linecap="round" />
+      {!compact && (
+        <g fill="#4A5B6E" font-size="12" font-family="Inter, system-ui, sans-serif">
+          {yTicks.map((t) => <text x={v.m.l - 8} y={v.y(t) + 4} text-anchor="end">{t}</text>)}
+          {v.xTicks.map((d) => <text x={v.x(d)} y={v.H - v.m.b + 18} text-anchor="middle">{d}</text>)}
+          <text x={(v.m.l + v.W - v.m.r) / 2} y={v.H - 6} text-anchor="middle">{c.xLabel}</text>
+          <text transform={`translate(13 ${(v.m.t + v.H - v.m.b) / 2}) rotate(-90)`} text-anchor="middle">{c.yLabel}</text>
+        </g>
+      )}
+    </svg>
+  ))}
+  {!compact && (
+    <ul class="legend light">
+      {views[0].series.map((s, k) => <li><span style={`background:${s.color}`}></span>{c.rp[k]}{s.dashed ? ` ${c.extrapolated}` : ''}</li>)}
+      <li><span style="background:#E07A1F"></span>{c.uplift}</li>
+    </ul>
+  )}
+  {!compact && <figcaption>{c.caption}</figcaption>}
+</figure>
