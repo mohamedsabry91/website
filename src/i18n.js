@@ -3,7 +3,7 @@
 
 export const CONTACT_EMAIL = '[YOUR EMAIL]';
 export const LINKEDIN_URL = 'https://www.linkedin.com/in/mohamed-sabry-ibrahim-pmp%C2%AE-20508758/';
-export const GITHUB_URL = '#';
+export const GITHUB_URL = 'https://github.com/mohamedsabry91';
 
 // Published LinkedIn posts behind the Insights cards. Empty = not live yet ("coming soon").
 const POSTS = {
