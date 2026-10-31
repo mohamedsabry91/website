@@ -1,0 +1,10 @@
+---
+import Base from '../../../layouts/Base.astro';
+import CaseStudySwmm from '../../../components/CaseStudySwmm.astro';
+import { t } from '../../../i18n.js';
+
+const c = t.ar;
+---
+<Base lang={c.lang} dir={c.dir} title={c.swmmCase.title} description={c.swmmCase.description} path="case-studies/swmm-gis-qa/">
+  <CaseStudySwmm c={c} />
+</Base>

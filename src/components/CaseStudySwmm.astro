@@ -1,0 +1,94 @@
+---
+import CaseShell from './CaseShell.astro';
+import { u } from '../url.js';
+
+const { c } = Astro.props;
+const s = c.swmmCase;
+const home = u(c.lang === 'ar' ? '/ar/' : '/');
+const stepColors = ['#2172B6', '#2E8B57', '#E07A1F', '#13809F'];
+---
+<CaseShell c={c} slug="swmm-gis-qa" back={s.back}>
+  <section class="dark case-hero">
+    <div class="wrap stack-sm">
+      <p class="eyebrow light">{s.eyebrow}</p>
+      <h1>{s.headline}</h1>
+      <p class="lead">{s.lead}</p>
+    </div>
+  </section>
+
+  <section class="stats" aria-label="Key figures">
+    <div class="wrap stat-grid">
+      {s.figures.map(([big, small]) => <div><strong>{big}</strong><span>{small}</span></div>)}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap stack">
+      <p class="notice">{s.notice}</p>
+
+      <div class="heading">
+        <h2>{s.problemTitle}</h2>
+        {s.problem.map((p) => <p class="body">{p}</p>)}
+      </div>
+
+      <div class="heading"><h2>{s.stepsTitle}</h2></div>
+      <ol class="checks">
+        {s.steps.map(([h, p], i) => (
+          <li class="check">
+            <span class="num" style={`background:${stepColors[i]}`}>{i + 1}</span>
+            <div class="check-body">
+              <h3>{h}</h3>
+              <p>{p}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+
+      <div class="heading">
+        <h2>{s.demoTitle}</h2>
+        <p class="body">{s.demoText}</p>
+      </div>
+      <table class="demo">
+        <thead><tr>{s.demoHead.map((h) => <th scope="col">{h}</th>)}</tr></thead>
+        <tbody>
+          {s.demoRows.map(([err, flag, note, effect]) => (
+            <tr>
+              <td data-label={s.demoHead[0]}>{err}</td>
+              <td data-label={s.demoHead[1]}><code dir="ltr">{flag}</code> <span>{note}</span></td>
+              <td data-label={s.demoHead[2]}>{effect}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <div class="uncertainty">
+        <h3>{s.resultTitle}</h3>
+        <p>{s.result}</p>
+      </div>
+
+      <figure class="panel fit">
+        <img src={u('/case-studies/swmm_gis_before_after.png')} alt={s.figAlt} width="1800" height="1125" loading="lazy" />
+        <figcaption>{s.figCaption}</figcaption>
+      </figure>
+
+      <div class="two-col">
+        <div class="card">
+          <h3>{s.limitsTitle}</h3>
+          <ul class="plain">{s.limits.map((n) => <li>{n}</li>)}</ul>
+        </div>
+        <div class="card">
+          <h3>{s.toolTitle}</h3>
+          <p>{s.tool}</p>
+          <p class="small">{s.credit}</p>
+        </div>
+      </div>
+
+      <div class="actions">
+        <a class="btn primary" href={s.repoUrl}>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 18l6-6-6-6"/><path d="M8 6l-6 6 6 6"/></svg>
+          {s.repoCta}
+        </a>
+        <a class="btn outline" href={`${home}#contact`}>{s.cta}</a>
+      </div>
+    </div>
+  </section>
+</CaseShell>

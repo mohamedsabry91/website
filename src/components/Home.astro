@@ -1,5 +1,6 @@
 ---
-import { CONTACT_EMAIL, LINKEDIN_URL, GITHUB_URL } from '../i18n.js';
+import { CONTACT_EMAIL, LINKEDIN_URL, TOOLKIT_URL } from '../i18n.js';
+import { u } from '../url.js';
 import IdfChart from './IdfChart.astro';
 
 const { c } = Astro.props;
@@ -15,7 +16,7 @@ const curves = [
   'M45 100 C 90 158, 160 193, 400 212',
   'M45 130 C 90 175, 160 202, 400 215',
 ];
-const tints = ['#DCEBF1', '#E4E9F2', '#E7EEE9'];
+const tints = ['#DCEBF1', '#E4E9F2', '#F4F7F9', '#E7EEE9'];
 ---
 <header class="dark">
   <div class="wrap bar">
@@ -29,7 +30,7 @@ const tints = ['#DCEBF1', '#E4E9F2', '#E7EEE9'];
       <a href="#insights">{c.nav.insights}</a>
       <a href="#toolkit">{c.nav.toolkit}</a>
       <a href="#contact">{c.nav.contact}</a>
-      <a class="pill" href={c.switchHref} lang={c.switchLang} hreflang={c.switchLang}>{c.switchLabel}</a>
+      <a class="pill" href={u(c.switchHref)} lang={c.switchLang} hreflang={c.switchLang}>{c.switchLabel}</a>
     </nav>
   </div>
 </header>
@@ -99,15 +100,15 @@ const tints = ['#DCEBF1', '#E4E9F2', '#E7EEE9'];
         </div>
         <a href="#work" class="more">{c.workAll}</a>
       </div>
-      <div class="cards">
+      <div class="cards pairs">
         {c.work.map(([tag, h, p, img, href], i) => (
           <article class="project">
             <div class="thumb" style={`background:${tints[i]}`}>
-              {img === 'idf' ? <IdfChart c={c.idfChart} compact /> : img}
+              {img === 'idf' ? <IdfChart c={c.idfChart} compact /> : img === 'swmm' ? <img src={u('/case-studies/swmm_gis_before_after.png')} alt="" width="1800" height="1125" loading="lazy" /> : img}
             </div>
             <div class="project-body">
               <span class="tag">{tag}</span>
-              <h3>{href ? <a href={href}>{h}</a> : h}</h3>
+              <h3>{href ? <a href={u(href)}>{h}</a> : h}</h3>
               <p>{p}</p>
             </div>
           </article>
@@ -148,7 +149,19 @@ const tints = ['#DCEBF1', '#E4E9F2', '#E7EEE9'];
           <h2>{c.toolkitTitle}</h2>
           <p>{c.toolkitText}</p>
         </div>
-        <a class="btn light-btn" href={GITHUB_URL}>
+        <ul class="tool-list">
+          {c.toolkitItems.map(([name, text, repo, caseHref]) => (
+            <li class="tool-item">
+              <h3 dir="auto">{name}</h3>
+              <p>{text}</p>
+              <div class="tool-links">
+                <a href={repo}>{c.toolkitCode}</a>
+                <a href={u(caseHref)}>{c.toolkitCase}</a>
+              </div>
+            </li>
+          ))}
+        </ul>
+        <a class="btn light-btn" href={TOOLKIT_URL}>
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 18l6-6-6-6"/><path d="M8 6l-6 6 6 6"/></svg>
           {c.toolkitCta}
         </a>
@@ -175,6 +188,6 @@ const tints = ['#DCEBF1', '#E4E9F2', '#E7EEE9'];
 <footer class="dark foot">
   <div class="wrap bar">
     <span>{c.footer}</span>
-    <a href={c.switchHref} lang={c.switchLang}>{c.switchLabel}</a>
+    <a href={u(c.switchHref)} lang={c.switchLang}>{c.switchLabel}</a>
   </div>
 </footer>
