@@ -1,4 +1,22 @@
-# Deploy checklist (Cloudflare Pages)
+# Deploy checklist
+
+## Now: GitHub Pages (no domain needed)
+The site builds and deploys itself from `.github/workflows/deploy.yml` (official `withastro/action` + `actions/deploy-pages`, Node 20) on every push to `main`.
+
+Live address: https://mohamedsabry91.github.io/website/
+
+One-time setup (Mohamed, on GitHub):
+1. Repo **Settings → Pages → Build and deployment → Source: GitHub Actions**.
+2. Merge the PR to `main` (or run the workflow by hand: **Actions → Deploy to GitHub Pages → Run workflow**).
+3. Open the link above and click through EN, AR and both case studies.
+
+Because the site lives in the `/website/` sub-folder, `astro.config.mjs` sets `site: 'https://mohamedsabry91.github.io'` and `base: '/website'`. Every internal link, image and the language switcher go through `u()` in `src/url.js`, which adds the base. Write new internal links as `u('/path/')`, never as a bare `/path/`.
+
+**When the custom domain is added later: remove `base` from `astro.config.mjs` and set `site` to the domain.** Nothing else needs to change; `u()` then adds nothing. On GitHub Pages, add the domain under Settings → Pages → Custom domain. Or move to Cloudflare Pages (below).
+
+---
+
+## Later option: Cloudflare Pages + custom domain
 
 Use this once the domain and accounts exist. Mohamed creates the accounts, buys the domain and signs in himself.
 
@@ -12,8 +30,8 @@ Use this once the domain and accounts exist. Mohamed creates the accounts, buys 
 ## 1. Local check
 ```
 npm install
-npm run build        # must end with "Complete!" and 4 pages
-npm run preview      # open http://localhost:4321 and click through EN, AR and the case study
+npm run build        # must end with "Complete!" and 6 pages
+npm run preview      # open http://localhost:4321/website/ and click through EN, AR and both case studies
 ```
 
 ## 2. Put the code on GitHub (only when Mohamed says go)
@@ -43,6 +61,6 @@ GitHub asks Mohamed to sign in in his browser. Claude never enters the password 
 3. Wait for the certificate (usually minutes).
 
 ## 5. Point the site at the real domain
-1. In `astro.config.mjs`, set `site: 'https://<your-domain>'` (canonical and hreflang links use it).
+1. In `astro.config.mjs`, remove `base` and set `site: 'https://<your-domain>'` (canonical and hreflang links use it).
 2. Commit and push. Cloudflare rebuilds on every push to `main`.
 3. Check the live site on desktop and phone, then add the URL to the LinkedIn profile (Contact info → Website).

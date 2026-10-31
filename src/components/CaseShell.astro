@@ -1,0 +1,31 @@
+---
+// Header and footer shared by all case-study pages. `slug` is the page folder under case-studies/.
+import { u } from '../url.js';
+
+const { c, slug, back } = Astro.props;
+const home = u(c.lang === 'ar' ? '/ar/' : '/');
+const other = u(c.lang === 'ar' ? `/case-studies/${slug}/` : `/ar/case-studies/${slug}/`);
+---
+<header class="dark">
+  <div class="wrap bar">
+    <a href={home} class="brand">
+      <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#13809F"/><path d="M7 21c3-4 6-4 9 0s6 4 9 0" stroke="#fff" stroke-width="2.2" fill="none" stroke-linecap="round"/><path d="M17 7c-3 4-4.5 6.5-4.5 8.5a4.5 4.5 0 0 0 9 0C21.5 13.5 20 11 17 7z" fill="#fff"/></svg>
+      <span>{c.name}</span>
+    </a>
+    <nav aria-label="Main">
+      <a href={home}>{back}</a>
+      <a class="pill" href={other} lang={c.switchLang} hreflang={c.switchLang}>{c.switchLabel}</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <slot />
+</main>
+
+<footer class="dark foot">
+  <div class="wrap bar">
+    <span>{c.footer}</span>
+    <a href={other} lang={c.switchLang}>{c.switchLabel}</a>
+  </div>
+</footer>

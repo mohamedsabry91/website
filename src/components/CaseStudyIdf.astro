@@ -1,26 +1,14 @@
 ---
 import IdfChart from './IdfChart.astro';
+import CaseShell from './CaseShell.astro';
+import { u } from '../url.js';
 
 const { c } = Astro.props;
 const s = c.caseStudy;
-const home = c.lang === 'ar' ? '/ar/' : '/';
-const other = c.lang === 'ar' ? '/case-studies/riyadh-idf/' : '/ar/case-studies/riyadh-idf/';
+const home = u(c.lang === 'ar' ? '/ar/' : '/');
 const checkColors = ['#2172B6', '#2E8B57', '#E07A1F', '#2172B6', '#2E8B57'];
 ---
-<header class="dark">
-  <div class="wrap bar">
-    <a href={home} class="brand">
-      <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#13809F"/><path d="M7 21c3-4 6-4 9 0s6 4 9 0" stroke="#fff" stroke-width="2.2" fill="none" stroke-linecap="round"/><path d="M17 7c-3 4-4.5 6.5-4.5 8.5a4.5 4.5 0 0 0 9 0C21.5 13.5 20 11 17 7z" fill="#fff"/></svg>
-      <span>{c.name}</span>
-    </a>
-    <nav aria-label="Main">
-      <a href={home}>{s.back}</a>
-      <a class="pill" href={other} lang={c.switchLang} hreflang={c.switchLang}>{c.switchLabel}</a>
-    </nav>
-  </div>
-</header>
-
-<main>
+<CaseShell c={c} slug="riyadh-idf" back={s.back}>
   <section class="dark case-hero">
     <div class="wrap stack-sm">
       <p class="eyebrow light">{s.eyebrow}</p>
@@ -55,7 +43,7 @@ const checkColors = ['#2172B6', '#2E8B57', '#E07A1F', '#2172B6', '#2E8B57'];
               <p><strong>{s.found}:</strong> {found}</p>
               {i === 1 && (
                 <figure class="panel fit">
-                  <img src="/case-studies/probability_plot.png" alt={s.fitAlt} width="1200" height="750" loading="lazy" />
+                  <img src={u('/case-studies/probability_plot.png')} alt={s.fitAlt} width="1200" height="750" loading="lazy" />
                   <figcaption>{s.fitCaption}</figcaption>
                 </figure>
               )}
@@ -74,18 +62,11 @@ const checkColors = ['#2172B6', '#2E8B57', '#E07A1F', '#2172B6', '#2E8B57'];
           <ul class="plain">
             {s.sources.map(([label, url]) => <li>{url ? <a href={url} dir="ltr">{label}</a> : <span dir="ltr">{label}</span>}</li>)}
           </ul>
-          <p class="small">{s.code}</p>
+          <p class="small">{s.codeUrl ? <a href={s.codeUrl}>{s.code}</a> : s.code}</p>
         </div>
       </div>
 
       <div class="actions"><a class="btn primary" href={`${home}#contact`}>{s.cta}</a></div>
     </div>
   </section>
-</main>
-
-<footer class="dark foot">
-  <div class="wrap bar">
-    <span>{c.footer}</span>
-    <a href={other} lang={c.switchLang}>{c.switchLabel}</a>
-  </div>
-</footer>
+</CaseShell>

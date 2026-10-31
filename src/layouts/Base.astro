@@ -1,10 +1,11 @@
 ---
 import '../styles/global.css';
+import { u } from '../url.js';
 
 const { lang, dir, title, description, path = '' } = Astro.props;
 const site = Astro.site ?? new URL('https://example.com');
-const enUrl = new URL(`/${path}`, site).href;
-const arUrl = new URL(`/ar/${path}`, site).href;
+const enUrl = new URL(u(`/${path}`), site).href;
+const arUrl = new URL(u(`/ar/${path}`), site).href;
 ---
 <!doctype html>
 <html lang={lang} dir={dir}>
@@ -13,7 +14,7 @@ const arUrl = new URL(`/ar/${path}`, site).href;
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{title}</title>
   <meta name="description" content={description} />
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href={u('/favicon.svg')} type="image/svg+xml" />
   <link rel="canonical" href={lang === 'ar' ? arUrl : enUrl} />
   <link rel="alternate" hreflang="en" href={enUrl} />
   <link rel="alternate" hreflang="ar" href={arUrl} />
