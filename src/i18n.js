@@ -1,7 +1,8 @@
 // All page copy lives here, one object per language.
 // Placeholders in [BRACKETS] still need real content.
 
-export const CONTACT_EMAIL = '[YOUR EMAIL]';
+// Split so the address is not in the HTML as plain text; joined in the browser (Home.astro).
+export const CONTACT_EMAIL = ['mohamed.sabry.ashry', 'gmail.com'];
 export const LINKEDIN_URL = 'https://www.linkedin.com/in/mohamed-sabry-ibrahim-pmp%C2%AE-20508758/';
 export const GITHUB_URL = 'https://github.com/mohamedsabry91';
 export const TOOLKIT_URL = 'https://github.com/mohamedsabry91/hydro-toolkit';
@@ -50,10 +51,10 @@ export const t = {
     workTitle: 'Problem, approach, result.',
     workAll: 'All projects →',
     work: [
-      ['Master planning · KSA', 'Stormwater master plan, 17 Saudi Amanahs', 'Rainfall → IDF → HEC-HMS → ICM 1D-2D → design and BOQ at city scale.', '[PROJECT IMAGE]'],
+      ['Master planning · KSA', 'Stormwater master plan, 17 Saudi Amanahs', 'Rainfall → IDF → HEC-HMS → ICM 1D-2D → design and BOQ at city scale.', 'plan'],
       ['Case study · Public data', 'Riyadh IDF curves with a climate allowance', 'One public NOAA gauge, 11 usable years and the 5 checks behind every IDF curve, applied in order. 100-year, 1-hour: 38.5 mm/h (illustrative).', 'idf', '/case-studies/riyadh-idf/'],
       ['Case study · Open-source tool', 'SWMM ↔ QGIS: QA a storm network in GIS', 'Check a SWMM model, see the errors on a map, push only the fixed values back and rerun. Demo: 5 flags → 0, flooding at 2 nodes → none.', 'swmm', '/case-studies/swmm-gis-qa/'],
-      ['Demo · Critical sites', 'Flood checks for a data-centre campus', 'Wadi risk, platform levels and access roads on a sample site, modelled in 1D-2D. [RESULT TO ADD]', '[3D FLOOD VISUAL]'],
+      ['Demo · Coming soon', 'Flood checks for a data-centre campus', 'Wadi risk, platform levels and access roads on a sample site, modelled in 1D-2D. Results and a 3D flood view will be published here.', 'soon'],
     ],
     insightsEyebrow: 'Insights',
     insightsTitle: 'Notes from the drainage desk.',
@@ -234,10 +235,10 @@ export const t = {
     workTitle: 'المشكلة، المنهجية، النتيجة.',
     workAll: 'كل المشاريع ←',
     work: [
-      ['مخططات شاملة · المملكة', 'المخطط الشامل لتصريف مياه الأمطار لـ 17 أمانة', 'أمطار ← IDF ← HEC-HMS ← نمذجة ICM 1D-2D ← تصميم وجداول كميات على مستوى المدن.', '[صورة المشروع]'],
+      ['مخططات شاملة · المملكة', 'المخطط الشامل لتصريف مياه الأمطار لـ 17 أمانة', 'أمطار ← IDF ← HEC-HMS ← نمذجة ICM 1D-2D ← تصميم وجداول كميات على مستوى المدن.', 'plan'],
       ['دراسة حالة · بيانات عامة', 'منحنيات IDF لمدينة الرياض مع هامش للتغير المناخي', 'محطة أمطار عامة واحدة من NOAA، و11 سنة صالحة، والفحوصات الخمسة وراء كل منحنى IDF مطبّقة بالترتيب. شدة الساعة لفترة تكرار 100 سنة: 38.5 مم/ساعة (توضيحية).', 'idf', '/ar/case-studies/riyadh-idf/'],
       ['دراسة حالة · أداة مفتوحة المصدر', 'SWMM ↔ QGIS: تدقيق شبكة تصريف على الخريطة', 'افحص نموذج SWMM، وشاهد الأخطاء على الخريطة، ثم أعد القيم المصحّحة وحدها وشغّل النموذج من جديد. في المثال: 5 تنبيهات ← صفر، والطفح عند عقدتين ← لا شيء.', 'swmm', '/ar/case-studies/swmm-gis-qa/'],
-      ['نموذج تجريبي · مواقع حيوية', 'فحص مخاطر السيول لمجمع مراكز بيانات', 'مخاطر الأودية، ومناسيب المنصات، والطرق المؤدية للموقع، بنموذج 1D-2D على موقع افتراضي. [النتيجة لاحقًا]', '[محاكاة ثلاثية الأبعاد]'],
+      ['نموذج تجريبي · قريبًا', 'فحص مخاطر السيول لمجمع مراكز بيانات', 'مخاطر الأودية، ومناسيب المنصات، والطرق المؤدية للموقع، بنموذج 1D-2D على موقع افتراضي. ستُنشر النتائج وعرض ثلاثي الأبعاد للطفح هنا.', 'soon'],
     ],
     insightsEyebrow: 'مقالات',
     insightsTitle: 'ملاحظات من مكتب التصريف.',

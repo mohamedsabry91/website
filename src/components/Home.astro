@@ -104,7 +104,21 @@ const tints = ['#DCEBF1', '#E4E9F2', '#F4F7F9', '#E7EEE9'];
         {c.work.map(([tag, h, p, img, href], i) => (
           <article class="project">
             <div class="thumb" style={`background:${tints[i]}`}>
-              {img === 'idf' ? <IdfChart c={c.idfChart} compact /> : img === 'swmm' ? <img src={u('/case-studies/swmm_gis_before_after.png')} alt="" width="1800" height="1125" loading="lazy" /> : img}
+              {img === 'idf' ? <IdfChart c={c.idfChart} compact />
+                : img === 'swmm' ? <img src={u('/case-studies/swmm_gis_before_after.png')} alt="" width="1800" height="1125" loading="lazy" />
+                : img === 'plan' ? (
+                  <svg viewBox="0 0 400 240" width="100%" height="100%" aria-hidden="true">
+                    <path d="M30 200 C 90 150, 120 170, 170 120 S 260 60, 370 40" fill="none" stroke="#2172B6" stroke-width="5" stroke-linecap="round" />
+                    <path d="M60 60 L 170 120 M 110 220 L 170 120 M 250 170 L 260 80 M 300 200 L 300 52" fill="none" stroke="#2172B6" stroke-width="2.5" stroke-dasharray="6 6" opacity=".6" />
+                    {[[30,200],[170,120],[260,80],[370,40],[60,60],[110,220],[250,170],[300,200]].map(([x, y]) => <circle cx={x} cy={y} r="7" fill="#fff" stroke="#13809F" stroke-width="3" />)}
+                  </svg>
+                )
+                : <svg viewBox="0 0 400 240" width="100%" height="100%" aria-hidden="true">
+                    <path d="M0 170 C 80 150, 140 190, 220 165 S 340 140, 400 160 V 240 H 0 Z" fill="#2172B6" opacity=".18" />
+                    <path d="M0 190 C 90 175, 150 205, 230 185 S 340 165, 400 180 V 240 H 0 Z" fill="#2172B6" opacity=".28" />
+                    <rect x="150" y="95" width="100" height="60" rx="6" fill="#fff" stroke="#13809F" stroke-width="3" />
+                    <path d="M165 115 H 235 M 165 130 H 235" stroke="#13809F" stroke-width="3" stroke-linecap="round" />
+                  </svg>}
             </div>
             <div class="project-body">
               <span class="tag">{tag}</span>
@@ -177,7 +191,13 @@ const tints = ['#DCEBF1', '#E4E9F2', '#F4F7F9', '#E7EEE9'];
         <p class="body">{c.contactText}</p>
       </div>
       <div class="contact-box">
-        <a class="btn primary" href={`mailto:${CONTACT_EMAIL}`}>{c.emailCta}</a>
+        <a class="btn primary" id="mail" href="#contact" data-u={CONTACT_EMAIL[0]} data-d={CONTACT_EMAIL[1]}>{c.emailCta}</a>
+        <script is:inline>
+          (function () {
+            var a = document.getElementById('mail');
+            if (a) a.href = 'mailto:' + a.dataset.u + '@' + a.dataset.d;
+          })();
+        </script>
         <a href={LINKEDIN_URL}>{c.linkedin}</a>
         <span>{c.location}</span>
       </div>
