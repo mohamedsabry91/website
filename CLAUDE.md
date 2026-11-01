@@ -7,7 +7,10 @@ See `README.md` for how to edit, run and deploy.
 - Commit or push only when Mohamed asks.
 - Mohamed buys the domain and creates the GitHub/Cloudflare accounts himself. Never enter passwords or tokens.
 
+## Hosting
+- GitHub Pages (https://mohamedsabry91.github.io/website/) until a domain is bought; deploys on every push to `main`. See `DEPLOY.md`.
+
 ## Waiting on Mohamed
-- Domain (then set `site` in `astro.config.mjs`)
-- Which email to show (`CONTACT_EMAIL`), LinkedIn URL, GitHub URL
+- Domain (then remove `base` and set `site` in `astro.config.mjs`)
 - Project images
+- Done: email (mohamed.sabry.ashry@gmail.com, obfuscated), LinkedIn URL, GitHub URL
